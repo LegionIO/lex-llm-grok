@@ -1,0 +1,39 @@
+plugins:
+  - rubocop-performance
+  - rubocop-rake
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.4
+  SuggestExtensions: false
+
+Metrics/BlockLength:
+  Exclude:
+    - '*.gemspec'
+    - spec/**/*
+Metrics/ClassLength:
+  Max: 350
+Metrics/ModuleLength:
+  Max: 350
+Metrics/MethodLength:
+  Enabled: false
+Metrics/ParameterLists:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/AnyInstance:
+  Enabled: false
+RSpec/SubjectStub:
+  Enabled: false
+Layout/LineLength:
+  Exclude:
+    - spec/**/*
