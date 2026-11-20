@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ci:
+    uses: LegionIO/.github/.github/workflows/ci.yml@main
+    with:
+      companion-gems: >-
+        {"lex-llm":{"repository":"LegionIO/lex-llm","ref":"2b0202374548221abc8f135ee934364dba766a7e"}}
+
+  excluded-files:
+    uses: LegionIO/.github/.github/workflows/excluded-files.yml@main
+
+  security:
+    uses: LegionIO/.github/.github/workflows/security-scan.yml@main
+    with:
+      companion-gems: >-
+        {"lex-llm":{"repository":"LegionIO/lex-llm","ref":"2b0202374548221abc8f135ee934364dba766a7e"}}
+
+  version-changelog:
+    uses: LegionIO/.github/.github/workflows/version-changelog.yml@main
+
+  dependency-review:
+    uses: LegionIO/.github/.github/workflows/dependency-review.yml@main
+
+  release:
+    needs: [ci, excluded-files, security]
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    uses: LegionIO/.github/.github/workflows/release.yml@main
+    secrets:
+      rubygems-api-key: ${{ secrets.RUBYGEMS_API_KEY }}

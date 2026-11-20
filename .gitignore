@@ -3,3 +3,8 @@ Gemfile.lock
 /tmp/
 /coverage/
 /.bundle/
+/pkg/
+/.ci-dependencies/
+.env
+.env.*
+.rspec_status*
